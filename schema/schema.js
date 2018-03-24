@@ -17,12 +17,6 @@ export default `
     user: User!
     channel: Channel!
   }
-  type User {
-    id: Int!
-    username: String!
-    email: String!
-    teams: [Team!]!
-  }
   type Query {
     hi: String
   }

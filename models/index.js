@@ -4,7 +4,9 @@ const sequelize = new Sequelize('vuoaftsg', 'vuoaftsg', '07lApfa01vMuacWqw8Q3a4M
   host: 'baasu.db.elephantsql.com',
   port: 5432,
   dialect: 'postgres',
-  underscored: true,
+  define: {
+    underscored: true
+  }
 });
 
 const models = {

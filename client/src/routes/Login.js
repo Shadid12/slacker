@@ -1,22 +1,40 @@
 import React from 'react';
 import { extendObservable } from 'mobx';
 import { observer } from 'mobx-react';
+import { gql, graphql } from 'react-apollo';
 
-export default observer(
-  class Login extends React.Component {
+class Login extends React.Component {
     constructor(props) {
       super(props);
 
       extendObservable(this, {
         email: '',
         password: '',
+        errors: ''
       });
     }
 
-    onSubmit = () => {
-      const { email, password } = this;
-      console.log(email);
-      console.log(password);
+    onSubmit = async () => {
+        const { email, password } = this;
+        const response = await this.props.mutate({
+          variables: { email, password },
+        });
+        console.log(response);
+        const { ok, token, refreshToken, errors } = response.data.login;
+        
+        if (ok) {
+          localStorage.setItem('token', token);
+          localStorage.setItem('refreshToken', refreshToken);
+          this.props.history.push('/');
+        } else {
+            const err = {};
+            errors.forEach(({ path, message }) => {
+                err[`${path}Error`] = message;
+              });
+        
+            this.errors = err;
+        }
+
     };
 
     onChange = e => {
@@ -25,7 +43,19 @@ export default observer(
     };
 
     render() {
-      const { email, password } = this;
+
+        const { email, password, errors: { emailError, passwordError } } = this;
+
+        const errorList = [];
+    
+        if (emailError) {
+          errorList.push(emailError);
+        }
+    
+        if (passwordError) {
+          errorList.push(passwordError);
+        }
+    
 
       return (
         <div className="container">
@@ -73,8 +103,30 @@ export default observer(
                 <div className="column">
                 </div>
             </div>
+            {errorList.length ? (
+                <article className="message is-danger animated rubberBand">
+                    <div className="message-body">
+                        {errorList[0]}
+                    </div>
+                </article>
+            ) : null}
         </div>
       );
     }
-  },
-);
+}
+
+const loginMutation = gql`
+  mutation($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      ok
+      token
+      refreshToken
+      errors {
+        path
+        message
+      }
+    }
+  }
+`;
+
+export default graphql(loginMutation)(observer(Login));

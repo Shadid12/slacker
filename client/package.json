@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "apollo-client": "^2.2.7",
+    "jwt-decode": "^2.2.0",
     "mobx": "^4.1.0",
+    "mobx-react": "^5.0.0",
     "react": "^16.2.0",
     "react-apollo": "^1.4.16",
     "react-dom": "^16.2.0",

@@ -52,7 +52,7 @@ class CreateTeam extends React.Component {
     return (
         <div className="container">
             <div className="notification">
-                <strong>Login</strong>
+                <strong>Create Your Team</strong>
             </div>
             <div className="columns">
                 <div className="column">

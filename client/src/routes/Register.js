@@ -6,14 +6,61 @@ class Register extends React.Component {
     username: '',
     email: '',
     password: '',
+    usernameError: '',
+    emailError: '',
+    passwordError: '',
+    passRed: '',
+    nameRed: '',
+    emailRed: ''
   };
 
   onSubmit = async () => {
+    this.setState({
+      usernameError: '',
+      emailError: '',
+      passwordError: '',
+      passRed: '',
+      nameRed: '',
+      emailRed: ''
+    })
     const response = await this.props.mutate({
       variables: this.state,
     });
 
+    const { ok, errors } = response.data.register;
+
+    if (ok) {
+      this.props.history.push('/');
+    } else {
+      const err = {};
+      errors.forEach(({ path, message }) => {
+        // err['passwordError'] = 'too long..';
+        err[`${path}Error`] = message;
+      });
+
+      this.setState(err);
+    }
+
+    if(this.state.emailError) {
+      this.setState({emailRed: 'animated is-danger shake'});
+    }else{
+      this.setState({emailRed: 'is-success'});
+    }
+
+    if(this.state.usernameError) {
+      this.setState({nameRed: 'animated is-danger shake'});
+    }else{
+      this.setState({nameRed: 'is-success'});
+    }
+
+    if(this.state.passwordError) {
+      this.setState({passRed: 'animated is-danger shake'});
+    }else{
+      this.setState({passRed: 'is-success'});
+    }
+
     console.log(response);
+
   };
 
   onChange = e => {
@@ -41,7 +88,7 @@ class Register extends React.Component {
                 <label className="label">Name</label>
                 <div className="control">
                   <input 
-                    className="input" 
+                    className={`input ${this.state.nameRed}`} 
                     type="text" 
                     placeholder="e.g Alex Smith"
                     name="username"
@@ -54,7 +101,7 @@ class Register extends React.Component {
                 <label className="label">Email</label>
                 <div className="control">
                   <input 
-                    className="input" 
+                    className={`input ${this.state.emailRed}`} 
                     type="email" 
                     placeholder="e.g alex@email.com"
                     name="email"
@@ -67,7 +114,7 @@ class Register extends React.Component {
                 <label className="label">Password</label>
                 <div className="control">
                   <input 
-                    className="input" 
+                    className={`input ${this.state.passRed}`} 
                     type="password" 
                     placeholder="e.g Super Secrect"
                     name="password"
@@ -92,7 +139,13 @@ class Register extends React.Component {
 
 const registerMutation = gql`
   mutation($username: String!, $email: String!, $password: String!) {
-    register(username: $username, email: $email, password: $password)
+    register(username: $username, email: $email, password: $password) {
+      ok
+      errors {
+        path
+        message
+      }
+    }
   }
 `;
 

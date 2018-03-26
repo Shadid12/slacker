@@ -4,16 +4,17 @@ import _ from 'lodash';
 import decode from 'jwt-decode';
 
 import Channels from '../components/Channels';
+import Teams from '../components/Teams';
 
 const Sidebar = ({ data: { loading, allTeams }, currentTeamId }) => {
   if (loading) {
     return null;
   }
 
+  console.log(allTeams);
   const teamIdx = _.findIndex(allTeams, ['id', currentTeamId]);
   const team = allTeams[teamIdx];
   let username = '';
-  console.log(team);
   try {
     const token = localStorage.getItem('token');
     const { user } = decode(token);
@@ -22,6 +23,10 @@ const Sidebar = ({ data: { loading, allTeams }, currentTeamId }) => {
   } catch (err) {}
 
   return [
+    <Teams 
+      key="team-sidebar"
+      teams={allTeams}
+    />,
     <Channels
       key="channels-sidebar"
       teamName="Team name"

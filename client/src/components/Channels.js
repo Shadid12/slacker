@@ -11,13 +11,13 @@ export default ({
     <div className="main">
         <a className="item active">
             <span className="icon">
-                <i class="far fa-address-book"></i>
+                <i className="far fa-address-book"></i>
             </span>
             <span className="name">Channels</span>
         </a>
-        <li style={{"list-style-type": "none"}}>
+        <li style={{"listStyleType": "none"}}>
             <ul>
-                <li style={{ "padding": "2px" }}>{channels.map(channel)}</li>
+                <div style={{ "padding": "2px" }}>{channels.map(channel)}</div>
             </ul>
         </li>
     </div>

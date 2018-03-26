@@ -4,7 +4,6 @@ import _ from 'lodash';
 import decode from 'jwt-decode';
 
 import Channels from '../components/Channels';
-import Teams from '../components/Teams';
 
 const Sidebar = ({ data: { loading, allTeams }, currentTeamId }) => {
   if (loading) {
@@ -14,6 +13,7 @@ const Sidebar = ({ data: { loading, allTeams }, currentTeamId }) => {
   const teamIdx = _.findIndex(allTeams, ['id', currentTeamId]);
   const team = allTeams[teamIdx];
   let username = '';
+  console.log(team);
   try {
     const token = localStorage.getItem('token');
     const { user } = decode(token);
@@ -22,20 +22,13 @@ const Sidebar = ({ data: { loading, allTeams }, currentTeamId }) => {
   } catch (err) {}
 
   return [
-    <Teams
-      key="team-sidebar"
-      teams={allTeams.map(t => ({
-        id: t.id,
-        letter: t.name.charAt(0).toUpperCase(),
-      }))}
-    />,
     <Channels
       key="channels-sidebar"
-      teamName={team.name}
-      username={username}
-      channels={team.channels}
+      teamName="Team name"
+      username="Username"
+      channels={[{ id: 1, name: 'general' }, { id: 2, name: 'random' }]}
       users={[{ id: 1, name: 'slackbot' }, { id: 2, name: 'user1' }]}
-    />,
+    />
   ];
 };
 

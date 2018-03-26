@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Channels from '../components/Channels';
+import Sidebar from '../containers/Sidebar';
 
 import '../css/view-team.css';
 
@@ -13,12 +14,7 @@ export default () => (
             <span className="compose">Compose</span>
             </a>
         </div>
-        <Channels
-            teamName="Team name"
-            username="Username"
-            channels={[{ id: 1, name: 'general' }, { id: 2, name: 'random' }]}
-            users={[{ id: 1, name: 'slackbot' }, { id: 2, name: 'user1' }]}
-        />
+        <Sidebar currentTeamId={7}/>
 
         <div className="main">
             <a href="#" className="item active"><span className="icon"><i className="fa fa-inbox"></i></span><span className="name">Inbox</span></a>

@@ -1,17 +1,23 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
-const team = ({ id, name }) => (
-    <a key={`team-${id}`} className="panel-block is-active">
-         <span className="panel-icon">
-            <i className="fas fa-book"></i>
-         </span>
-        {name}
-    </a>
-);
+const team = ({ id, name }) => {
+    return(
+        <Link key={`team-${id}`} to={`/view-team/${id}`}>
+            <div key={`team-${id}`} className="panel-block">
+                <span className="panel-icon">
+                    <i className="fas fa-book"></i>
+                </span>
+                {name}
+            </div>
+        </Link>
+    )
+}
 
-export default ({ teams }) => (
+export default ({ teams, currentTeam }) => (
     <div className="main">
+        <div>{currentTeam.name}</div>
         <nav className="panel">
             <p className="panel-heading">
                 Teams

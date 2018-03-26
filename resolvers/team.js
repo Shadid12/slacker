@@ -11,8 +11,10 @@ export default {
       try {
         const team = await models.Team.create({ ...args, owner: user.id });
         await models.Channel.create({ name: 'general', public: true, teamId: team.id });
+        
         return {
           ok: true,
+          team
         };
       } catch (err) {
         console.log(err);

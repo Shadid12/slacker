@@ -1,43 +1,31 @@
 import React from 'react';
+
+import Channels from '../components/Channels';
+
 import '../css/view-team.css';
 
 export default () => (
-    
-    <div >
-        <section className="main-content columns is-fullheight">
-        <aside className="column is-2 is-narrow-mobile is-fullheight section is-hidden-mobile">
-            <p className="menu-label is-hidden-touch">Username</p>
-            <ul className="menu-list">
-            <li>
-                <a className="">
-                <span className="icon"><i className="fa fa-home"></i></span> Home
-                </a>
-            </li>
-            <li>
-                <a  className="is-active">
-                <span className="icon"><i className="fa fa-table"></i></span> Channels
-                </a>
 
-                <ul>
-                <li>
-                    <a>
-                    <span className="icon is-small"><i className="fa fa-link"></i></span> Link1
-                    </a>
-                </li>
-                <li>
-                    <a>
-                    <span className="icon is-small"><i className="fa fa-link"></i></span> Link2
-                    </a>
-                </li>
-                </ul>
-            </li>
-            <li>
-                <a className="">
-                <span className="icon"><i className="fa fa-info"></i></span> About
-                </a>
-            </li>
-            </ul>
-        </aside>
-        </section>
-    </div>
+    <aside className="column is-2 aside hero is-fullheight">
+        <div>
+        <div className="compose has-text-centered">
+            <a className="button is-danger is-block is-bold">
+            <span className="compose">Compose</span>
+            </a>
+        </div>
+        <Channels
+            teamName="Team name"
+            username="Username"
+            channels={[{ id: 1, name: 'general' }, { id: 2, name: 'random' }]}
+            users={[{ id: 1, name: 'slackbot' }, { id: 2, name: 'user1' }]}
+        />
+
+        <div className="main">
+            <a href="#" className="item active"><span className="icon"><i className="fa fa-inbox"></i></span><span className="name">Inbox</span></a>
+            <a href="#" className="item"><span className="icon"><i className="fa fa-star"></i></span><span className="name">Starred</span></a>
+            <a href="#" className="item"><span className="icon"><i className="fa fa-envelope-o"></i></span><span className="name">Sent Mail</span></a>
+            <a href="#" className="item"><span className="icon"><i className="fa fa-folder-o"></i></span><span className="name">Folders</span></a>
+        </div>
+        </div>
+    </aside>
 );

@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-const sequelize = new Sequelize('vuoaftsg', 'vuoaftsg', '07lApfa01vMuacWqw8Q3a4MU45aHq4jO', {
+const sequelize = new Sequelize('nwcmgbcp', 'nwcmgbcp', '93WUJq7OOzpF-PLwzvWkRPOxxSR-4klX', {
   host: 'baasu.db.elephantsql.com',
   port: 5432,
   dialect: 'postgres',

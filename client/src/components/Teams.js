@@ -17,7 +17,6 @@ const team = ({ id, name }) => {
 
 export default ({ teams, currentTeam }) => (
     <div className="main">
-        <div>{currentTeam.name}</div>
         <nav className="panel">
             <p className="panel-heading">
                 Teams

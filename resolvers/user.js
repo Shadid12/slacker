@@ -1,5 +1,6 @@
 import formatErrors from '../formatErrors';
 import { tryLogin } from '../auth';
+import bcrypt from 'bcrypt';
 
 
 export default {
@@ -15,7 +16,7 @@ export default {
           tryLogin(email, password, models, SECRET)
         )
       },
-
+      
       register: async (parent, { password, ...otherArgs }, { models }) => {
         try {
 
@@ -34,8 +35,7 @@ export default {
           const hashedPassword = await bcrypt.hash(password, 12);
           await models.User.create({ ...otherArgs, password: hashedPassword });
           return {
-            ok: true,
-            user
+            ok: true
           };
         } catch (err) {
           return {
@@ -44,6 +44,5 @@ export default {
           };
         }
       }
-
     },
   };
